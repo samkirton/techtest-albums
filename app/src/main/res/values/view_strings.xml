@@ -1,0 +1,4 @@
+<resources>
+    <string name="error_retry_view_title">Sorry</string>
+    <string name="error_retry_view_button">Retry</string>
+</resources>

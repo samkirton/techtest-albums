@@ -1,0 +1,3 @@
+<resources>
+    <string name="album_error">We could not load the album list.</string>
+</resources>
