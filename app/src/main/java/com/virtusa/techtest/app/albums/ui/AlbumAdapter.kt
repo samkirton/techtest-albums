@@ -5,15 +5,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.virtusa.techtest.R
-import com.virtusa.techtest.api.AlbumJson
+import com.virtusa.techtest.app.albums.Album
 
 class AlbumAdapter(
     context: Context,
     private val inflater: LayoutInflater = LayoutInflater.from(context),
-    private val data: MutableList<AlbumJson> = ArrayList()
+    private val data: MutableList<Album> = ArrayList()
 ) : RecyclerView.Adapter<AlbumViewHolder>() {
 
-    fun populate(albumJson: List<AlbumJson>) {
+    fun populate(albumJson: List<Album>) {
         data.clear()
         data.addAll(albumJson)
         notifyDataSetChanged()

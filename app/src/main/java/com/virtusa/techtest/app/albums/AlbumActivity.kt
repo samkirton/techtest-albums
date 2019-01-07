@@ -2,7 +2,6 @@ package com.virtusa.techtest.app.albums
 
 import android.os.Bundle
 import com.virtusa.techtest.R
-import com.virtusa.techtest.api.AlbumJson
 import com.virtusa.techtest.app.MviActivity
 import com.virtusa.techtest.app.ViewModelFactory
 import com.virtusa.techtest.app.albums.ui.AlbumAdapter
@@ -60,7 +59,7 @@ class AlbumActivity
         album_activity_errorRetryView.populate(getString(R.string.album_error))
     }
 
-    override fun showAlbums(albums: List<AlbumJson>) {
+    override fun showAlbums(albums: List<Album>) {
         album_activity_progressBar.gone()
         album_activity_recyclerView.visible()
         albumAdapter.populate(albums)

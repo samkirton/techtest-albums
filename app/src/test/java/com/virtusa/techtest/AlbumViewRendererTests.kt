@@ -3,6 +3,7 @@ package com.virtusa.techtest
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import com.virtusa.techtest.api.AlbumJson
+import com.virtusa.techtest.app.albums.Album
 import com.virtusa.techtest.app.albums.AlbumViewLayout
 import com.virtusa.techtest.app.albums.AlbumViewRenderer
 import com.virtusa.techtest.app.albums.AlbumViewState
@@ -44,7 +45,7 @@ class AlbumViewRendererTests : Spek({
         on("View.ShowAlbums") {
             val layout: AlbumViewLayout = mock()
             val renderer = AlbumViewRenderer()
-            val albums = asList(mock<AlbumJson>())
+            val albums = asList(mock<Album>())
 
             renderer.layout(layout, AlbumViewState(view = AlbumViewState.View.ShowAlbums, albums = albums))
 

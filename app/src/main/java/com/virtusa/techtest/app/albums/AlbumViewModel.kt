@@ -2,13 +2,12 @@ package com.virtusa.techtest.app.albums
 
 import android.app.Application
 import com.memtrip.mxandroid.MxViewModel
-import com.virtusa.techtest.api.Api
 import com.virtusa.techtest.util.RxScheduler
 import io.reactivex.Observable
 import javax.inject.Inject
 
 class AlbumViewModel @Inject internal constructor(
-    private val api: Api,
+    private val albumUseCase: AlbumUseCase,
     private val rx: RxScheduler,
     application: Application
 ) : MxViewModel<AlbumIntent, AlbumRenderAction, AlbumViewState>(
@@ -30,9 +29,9 @@ class AlbumViewModel @Inject internal constructor(
     }
 
     private fun getAlbums(): Observable<AlbumRenderAction> {
-        return api.getAlbums().observeOn(rx.main()).subscribeOn(rx.thread()).map { response ->
-            if (response.isSuccessful) {
-                AlbumRenderAction.ShowAlbums(response.body()!!)
+        return albumUseCase.getAlbums().observeOn(rx.main()).subscribeOn(rx.thread()).map { albums ->
+            if (albums.isNotEmpty()) {
+                AlbumRenderAction.ShowAlbums(albums)
             } else {
                 AlbumRenderAction.OnError
             }

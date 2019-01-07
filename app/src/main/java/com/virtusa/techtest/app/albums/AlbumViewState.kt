@@ -1,10 +1,9 @@
 package com.virtusa.techtest.app.albums
 
 import com.memtrip.mxandroid.MxViewState
-import com.virtusa.techtest.api.AlbumJson
 
 data class AlbumViewState(
-    val albums: List<AlbumJson> = emptyList(),
+    val albums: List<Album> = emptyList(),
     val view: View
 ) : MxViewState {
 

@@ -1,14 +1,8 @@
 package com.virtusa.techtest
 
-import android.os.NetworkOnMainThreadException
-import com.nhaarman.mockito_kotlin.doReturn
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.whenever
-import com.virtusa.techtest.api.AlbumJson
-import com.virtusa.techtest.api.Api
-import com.virtusa.techtest.app.albums.AlbumIntent
-import com.virtusa.techtest.app.albums.AlbumViewModel
-import com.virtusa.techtest.app.albums.AlbumViewState
+import com.virtusa.techtest.app.albums.*
 import com.virtusa.techtest.util.TestRxScheduler
 import com.virtusa.techtest.util.get
 import io.reactivex.Observable
@@ -20,7 +14,6 @@ import org.jetbrains.spek.api.dsl.on
 import org.junit.Assert.assertEquals
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
-import retrofit2.Response
 import java.util.Arrays.asList
 
 @RunWith(JUnitPlatform::class)
@@ -28,24 +21,15 @@ class AlbumViewModelTests : Spek({
 
     given("AlbumViewModel") {
 
-        val api by memoized { mock<Api>() }
+        val albumUseCase by memoized { mock<AlbumUseCase>() }
         val testRxScheduler by memoized { TestRxScheduler() }
-        val viewModel by memoized { AlbumViewModel(api, testRxScheduler, mock()) }
+        val viewModel by memoized { AlbumViewModel(albumUseCase, testRxScheduler, mock()) }
 
         on("Retrieved albums successfully") {
 
-            val albums = asList(mock<AlbumJson>())
-            val response = mock<Response<List<AlbumJson>>> {
-                on {
-                    isSuccessful
-                }.doReturn(true)
+            val albums = asList(mock<Album>())
 
-                on {
-                    body()
-                }.doReturn(albums)
-            }
-
-            whenever(api.getAlbums()).thenReturn(Single.just(response))
+            whenever(albumUseCase.getAlbums()).thenReturn(Single.just(albums))
 
             viewModel.processIntents(Observable.just(AlbumIntent.Init))
             val states = viewModel.states().test()
@@ -58,7 +42,7 @@ class AlbumViewModelTests : Spek({
 
         on("Failed to retrieve albums") {
 
-            whenever(api.getAlbums()).thenReturn(Single.error(NetworkOnMainThreadException()))
+            whenever(albumUseCase.getAlbums()).thenReturn(Single.just(emptyList()))
 
             viewModel.processIntents(Observable.just(AlbumIntent.Init))
             val states = viewModel.states().test()
