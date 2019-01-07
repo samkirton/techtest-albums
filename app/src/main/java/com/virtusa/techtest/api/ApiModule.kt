@@ -19,13 +19,18 @@ internal object ApiModule {
 
     @JvmStatic
     @Provides
-    fun okHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+    fun okHttpClient(apiConfig: ApiConfig): OkHttpClient {
+        val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(3, TimeUnit.SECONDS)
             .readTimeout(3, TimeUnit.SECONDS)
             .writeTimeout(3, TimeUnit.SECONDS)
-            .build()
+
+        apiConfig.interceptors.map {
+            okHttpClient.addInterceptor(it)
+        }
+
+        return okHttpClient.build()
     }
 
     @JvmStatic

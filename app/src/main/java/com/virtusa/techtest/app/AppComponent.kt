@@ -1,6 +1,7 @@
 package com.virtusa.techtest.app
 
 import android.app.Application
+import com.virtusa.techtest.api.ApiConfig
 import com.virtusa.techtest.api.ApiModule
 import com.virtusa.techtest.util.UtilModule
 import dagger.BindsInstance
@@ -18,13 +19,16 @@ import javax.inject.Singleton
         UtilModule::class
     ]
 )
-interface AppComponent : AndroidInjector<InjectorApplication> {
+interface AppComponent : AndroidInjector<BaseInjectorApplication> {
 
     @Component.Builder
     interface Builder {
 
         @BindsInstance
         fun application(application: Application): Builder
+
+        @BindsInstance
+        fun apiConfig(apiConfig: ApiConfig): Builder
 
         fun build(): AppComponent
     }

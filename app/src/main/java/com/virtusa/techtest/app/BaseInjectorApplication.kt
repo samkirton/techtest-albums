@@ -6,16 +6,14 @@ import dagger.android.DaggerApplication
 import dagger.android.DispatchingAndroidInjector
 import javax.inject.Inject
 
-class InjectorApplication : DaggerApplication() {
+abstract class BaseInjectorApplication : DaggerApplication() {
 
     @Inject
     lateinit var activityInjector: DispatchingAndroidInjector<Activity>
 
-    override fun applicationInjector(): AndroidInjector<InjectorApplication> = appComponent
+    override fun applicationInjector(): AndroidInjector<BaseInjectorApplication> = appComponent
 
     override fun activityInjector(): DispatchingAndroidInjector<Activity> = activityInjector
 
-    private val appComponent: AppComponent by lazy {
-        DaggerAppComponent.builder().application(this).build()
-    }
+    abstract val appComponent: AppComponent
 }
