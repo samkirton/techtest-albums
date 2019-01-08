@@ -37,5 +37,11 @@ class StubActivityTestRule : ActivityTestRule<AlbumActivity>(
     override fun beforeActivityLaunched() {
         super.beforeActivityLaunched()
         inject()
+        InstrumentationRegistry.getTargetContext().deleteDatabase("techtest_db")
+    }
+
+    override fun afterActivityFinished() {
+        super.afterActivityFinished()
+        TestInjectorApplication.resetInjector()
     }
 }

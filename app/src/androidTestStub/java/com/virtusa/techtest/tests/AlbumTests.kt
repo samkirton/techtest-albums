@@ -25,9 +25,9 @@ class AlbumTests {
         rule.launch(Stub.Success)
 
         onView(withId(R.id.album_activity_recyclerView))
-            .check(matches(atPosition(0, hasDescendant(ViewMatchers.withText("quidem molestiae enim")))))
-            .check(matches(atPosition(1, hasDescendant(ViewMatchers.withText("sunt qui excepturi placeat culpa")))))
-            .check(matches(atPosition(2, hasDescendant(ViewMatchers.withText("omnis laborum odio")))))
+            .check(matches(atPosition(0, hasDescendant(ViewMatchers.withText("omnis laborum odio")))))
+            .check(matches(atPosition(1, hasDescendant(ViewMatchers.withText("quidem molestiae enim")))))
+            .check(matches(atPosition(2, hasDescendant(ViewMatchers.withText("sunt qui excepturi placeat culpa")))))
     }
 
     @Test
@@ -42,8 +42,8 @@ class AlbumTests {
             .perform(click())
 
         onView(withId(R.id.album_activity_recyclerView))
-            .check(matches(atPosition(0, hasDescendant(ViewMatchers.withText("quidem molestiae enim")))))
-            .check(matches(atPosition(1, hasDescendant(ViewMatchers.withText("sunt qui excepturi placeat culpa")))))
-            .check(matches(atPosition(2, hasDescendant(ViewMatchers.withText("omnis laborum odio")))))
+            .check(matches(atPosition(0, hasDescendant(ViewMatchers.withText("omnis laborum odio")))))
+            .check(matches(atPosition(1, hasDescendant(ViewMatchers.withText("quidem molestiae enim")))))
+            .check(matches(atPosition(2, hasDescendant(ViewMatchers.withText("sunt qui excepturi placeat culpa")))))
     }
 }

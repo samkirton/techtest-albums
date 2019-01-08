@@ -21,10 +21,14 @@ class AlbumUseCase @Inject internal constructor(
     fun getAlbums(): Single<List<Album>> {
         return countAlbums.count().flatMap { albumCount ->
             if (albumCount > 0) {
-                getAlbumEntities()
+                getAlbumEntities().map {
+                    it.sortedBy { it.name }
+                }
             } else {
                 fetchAlbums().flatMap { albums ->
-                    insertAlbumJson(albums)
+                    insertAlbumJson(albums).map {
+                        it.sortedBy { it.name }
+                    }
                 }
             }
         }
